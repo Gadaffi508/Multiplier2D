@@ -1,12 +1,15 @@
-using Steamworks;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Mirror;
+using Steamworks;
 using UnityEngine.UI;
+using System.Linq;
 
-public class LobbyController : MonoBehaviour
+public class SteamLobbyController : MonoBehaviour
 {
-    public static LobbyController Instance;
+    public static SteamLobbyController Instance;
     
     public Text LobbyNameText;
     
@@ -16,8 +19,8 @@ public class LobbyController : MonoBehaviour
     
     public ulong CurrentLobbyID;
     public bool PlayerItemCreated = false;
-    private List<SPlayerLıstItem> _playerItems = new List<SPlayerLıstItem>();
-    public SPlayerObjectController LocalPlayerController;
+    private List<SteamPlayerItem> _playerItems = new List<SteamPlayerItem>();
+    public SteamPlayerController LocalPlayerController;
     
     private CustomNetworkManager manager;
 
@@ -61,7 +64,7 @@ public class LobbyController : MonoBehaviour
     {
         bool AllReady = false;
 
-        foreach (SPlayerObjectController player in Manager.GamePlayer)
+        foreach (SteamPlayerController player in Manager.GamePlayer)
         {
             if (player.Ready) AllReady = true;
             else
@@ -101,20 +104,18 @@ public class LobbyController : MonoBehaviour
         if (_playerItems.Count > Manager.GamePlayer.Count) RemovePlayerItem();
         if (_playerItems.Count == Manager.GamePlayer.Count) UpdatePlayerItem();
     }
-    
-    //Yerel oyuncu bulma
     public void FindLocalPlayer()
     {
         LocalPlayerObject = GameObject.Find("LocalGamePlayer");
-        LocalPlayerController = LocalPlayerObject.GetComponent<SPlayerObjectController>();
+        LocalPlayerController = LocalPlayerObject.GetComponent<SteamPlayerController>();
     }
 
     public void CreateHostPlayerItem()
     {
-        foreach (SPlayerObjectController player in Manager.GamePlayer)
+        foreach (SteamPlayerController player in Manager.GamePlayer)
         {
             GameObject NewPlayerItem = Instantiate(PlayerListItemPrefab) as GameObject;
-            SPlayerLıstItem NewPlayerItemScript = NewPlayerItem.GetComponent<SPlayerLıstItem>();
+            SteamPlayerItem NewPlayerItemScript = NewPlayerItem.GetComponent<SteamPlayerItem>();
 
             NewPlayerItemScript.PlayerName = player.PlayerName;
             NewPlayerItemScript.ConnectionId = player.ConnectionId;
@@ -132,12 +133,12 @@ public class LobbyController : MonoBehaviour
     
     public void CreateClientPlayerItem()
     {
-        foreach (SPlayerObjectController player in Manager.GamePlayer)
+        foreach (SteamPlayerController player in Manager.GamePlayer)
         {
             if (!_playerItems.Any(b => b.ConnectionId == player.ConnectionId))
             {
                 GameObject NewPlayerItem = Instantiate(PlayerListItemPrefab) as GameObject;
-                SPlayerLıstItem NewPlayerItemScript = NewPlayerItem.GetComponent<SPlayerLıstItem>();
+                SteamPlayerItem NewPlayerItemScript = NewPlayerItem.GetComponent<SteamPlayerItem>();
 
                 NewPlayerItemScript.PlayerName = player.PlayerName;
                 NewPlayerItemScript.ConnectionId = player.ConnectionId;
@@ -155,9 +156,9 @@ public class LobbyController : MonoBehaviour
     
     public void UpdatePlayerItem()
     {
-        foreach (SPlayerObjectController player in Manager.GamePlayer)
+        foreach (SteamPlayerController player in Manager.GamePlayer)
         {
-            foreach (SPlayerLıstItem PlayerListItemScript in _playerItems)
+            foreach (SteamPlayerItem PlayerListItemScript in _playerItems)
             {
                 if (PlayerListItemScript.ConnectionId == player.ConnectionId)
                 {
@@ -176,9 +177,9 @@ public class LobbyController : MonoBehaviour
     
     public void RemovePlayerItem()
     {
-        List<SPlayerLıstItem> playerListItemToRemove = new List<SPlayerLıstItem>();
+        List<SteamPlayerItem> playerListItemToRemove = new List<SteamPlayerItem>();
 
-        foreach (SPlayerLıstItem playerListItem in _playerItems)
+        foreach (SteamPlayerItem playerListItem in _playerItems)
         {
             if (!Manager.GamePlayer.Any(b => b.ConnectionId == playerListItem.ConnectionId))
             {
@@ -188,7 +189,7 @@ public class LobbyController : MonoBehaviour
 
         if (playerListItemToRemove.Count > 0)
         {
-            foreach (SPlayerLıstItem playerlistItemToRemove in playerListItemToRemove)
+            foreach (SteamPlayerItem playerlistItemToRemove in playerListItemToRemove)
             {
                 GameObject ObjectToRemove = playerlistItemToRemove.gameObject;
                 _playerItems.Remove(playerlistItemToRemove);
@@ -197,17 +198,19 @@ public class LobbyController : MonoBehaviour
             }
         }
     }
-
-    public void StartGame(string SceneName)
-    {
-        if (SteamMatchmaking.GetNumLobbyMembers((CSteamID)SteamLobby.Instance.CurrentLobbyID) == 2)
-        {
-            Debug.Log("Connection.");
-        }
-        else
-        {
-            Debug.Log("You need 1 person.");
-        }
-        LocalPlayerController.CanStartGame(SceneName);
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

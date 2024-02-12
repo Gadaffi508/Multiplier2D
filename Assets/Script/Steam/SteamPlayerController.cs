@@ -1,8 +1,10 @@
-using Steamworks;
-using Mirror;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
-public class SPlayerObjectController : NetworkBehaviour
+using Mirror;
+using Steamworks;
+public class SteamPlayerController : NetworkBehaviour
 {
     [SyncVar] 
     public int ConnectionId;
@@ -46,7 +48,7 @@ public class SPlayerObjectController : NetworkBehaviour
         
         if (isClient)
         {
-            LobbyController.Instance.UpdatePlayerList();
+            SteamLobbyController.Instance.UpdatePlayerList();
         }
     }
 
@@ -65,21 +67,21 @@ public class SPlayerObjectController : NetworkBehaviour
     {
         CmdSetPlayerName(SteamFriends.GetPersonaName().ToString());
         gameObject.name = "LocalGamePlayer";
-        LobbyController.Instance.FindLocalPlayer();
-        LobbyController.Instance.UpdateLobbyName();
+        SteamLobbyController.Instance.FindLocalPlayer();
+        SteamLobbyController.Instance.UpdateLobbyName();
     }
 
     public override void OnStartClient()
     {
         Manager.GamePlayer.Add(this);
-        LobbyController.Instance.UpdateLobbyName();
-        LobbyController.Instance.UpdatePlayerList();
+        SteamLobbyController.Instance.UpdateLobbyName();
+        SteamLobbyController.Instance.UpdatePlayerList();
     }
 
     public override void OnStopClient()
     {
         Manager.GamePlayer.Remove(this);
-        LobbyController.Instance.UpdatePlayerList();
+        SteamLobbyController.Instance.UpdatePlayerList();
     }
 
     [Command]
@@ -97,10 +99,9 @@ public class SPlayerObjectController : NetworkBehaviour
         
         if (isClient)
         {
-            LobbyController.Instance.UpdatePlayerList();
+            SteamLobbyController.Instance.UpdatePlayerList();
         }
     }
-    
     public void CanStartGame(string SceneName)
     {
         if (authority)
@@ -108,10 +109,22 @@ public class SPlayerObjectController : NetworkBehaviour
             CmdStartGame(SceneName);
         }
     }
-    
     [Command]
     public void CmdStartGame(string SceneName)
     {
         manager.StartGame(SceneName);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

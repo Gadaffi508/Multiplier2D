@@ -1,8 +1,11 @@
-using Steamworks;
-using UnityEngine.UI;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Steamworks;
 
-public class SPlayerLıstItem : MonoBehaviour
+public class SteamPlayerItem : MonoBehaviour
 {
     public string PlayerName;
     public int ConnectionId;
@@ -78,3 +81,26 @@ public class SPlayerLıstItem : MonoBehaviour
         return texture;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
