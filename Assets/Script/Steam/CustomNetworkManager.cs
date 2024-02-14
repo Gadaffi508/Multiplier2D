@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
@@ -9,7 +10,6 @@ public class CustomNetworkManager : NetworkManager
 {
     [SerializeField] private SteamPlayerController gamePlayerPrefabs;
     public List<SteamPlayerController> GamePlayer { get; } = new List<SteamPlayerController>();
-
     
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
