@@ -57,7 +57,7 @@ public class SteamPlayerController : NetworkBehaviour
 
     public void ChangeReady()
     {
-        if (authority) CMdSetPlayerReady();
+        if (isLocalPlayer) CMdSetPlayerReady();
     }
 
     public override void OnStartAuthority()
@@ -101,7 +101,7 @@ public class SteamPlayerController : NetworkBehaviour
     }
     public void CanStartGame(string SceneName)
     {
-        if (authority)
+        if (isLocalPlayer)
         {
             CmdStartGame(SceneName);
         }

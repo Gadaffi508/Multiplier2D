@@ -1875,7 +1875,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 150
     m_Right: 0
-    m_Top: 33
+    m_Top: 386
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 85
@@ -2268,7 +2268,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 33
+    m_Top: 70
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 85

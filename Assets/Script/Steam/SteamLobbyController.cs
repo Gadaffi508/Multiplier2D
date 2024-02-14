@@ -73,22 +73,6 @@ public class SteamLobbyController : MonoBehaviour
                 break;
             }
         }
-
-        if (AllReady)
-        {
-            if (LocalPlayerController.PlayerId == 1)
-            {
-                StartGameButton.interactable = true;
-            }
-            else
-            {
-                StartGameButton.interactable = false;
-            }
-        }
-        else
-        {
-            StartGameButton.interactable = false;
-        }
     }
     
     public void UpdateLobbyName()

@@ -29,21 +29,23 @@ public class PlayerMove : NetworkBehaviour
              
             playerName.text = _steamPlayerController.PlayerName;
         }
-        
-        if(authority) Movement();
+
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+        CmdMove(x,y);
     }
-
-    public void SetPosition()
+    
+    [Command]
+    private void CmdMove(float x, float y)
     {
-        transform.position = new Vector3(Random.Range(0,3),Random.Range(0,3));
+        RpcMove(x,y);
     }
-
-    public void Movement()
+    
+    [ClientRpc]
+    private void RpcMove(float x, float y)
     {
-        float X = Input.GetAxis("Horizontal");
-        float Z = Input.GetAxis("Vertical");
+        Vector3 direction = new Vector3(x,y);
 
-        Vector2 moveDirection = new Vector2(X,Z);
-        transform.Translate(moveDirection * Time.deltaTime * speed);
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 }

@@ -29,6 +29,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5874396027980132453}
+  - {fileID: 1279831490056964998}
   m_Father: {fileID: 6182285764732253487}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,6 +47,8 @@ GameObject:
   - component: {fileID: 1444331223389536103}
   - component: {fileID: 4849602312836842237}
   - component: {fileID: 808393598802528973}
+  - component: {fileID: 4358460237239973241}
+  - component: {fileID: 6924609632568774215}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -150,7 +153,7 @@ MonoBehaviour:
   syncInterval: 0
   speed: 5
   gameSceneName: GameScene
-  playerSprite: {fileID: 4861639311032525551}
+  playerSprite: {fileID: 2165097405921739232}
   playerName: {fileID: 5773740804311397756}
 --- !u!114 &808393598802528973
 MonoBehaviour:
@@ -186,6 +189,44 @@ MonoBehaviour:
   compressRotation: 0
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!95 &4358460237239973241
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2177159878222015338}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 32c70cce182934c42bfc710fd2e32516, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6924609632568774215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2177159878222015338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 0
+  animator: {fileID: 4358460237239973241}
 --- !u!1 &2384505918762959166
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,12 +259,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 407929880444303236}
-  m_Father: {fileID: 5874396027980132453}
-  m_RootOrder: 0
+  m_Father: {fileID: 1082950225619959098}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.0436, y: 0.7151}
+  m_AnchoredPosition: {x: -0.0436, y: 0.891}
   m_SizeDelta: {x: 5.1772, y: 1.4749}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &252900113311071535
@@ -315,8 +356,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1279831490056964998}
+  m_Children: []
   m_Father: {fileID: 1082950225619959098}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
