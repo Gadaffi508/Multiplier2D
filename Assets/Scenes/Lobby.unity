@@ -1221,7 +1221,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Lobby Name
+  m_Text: Lobby ID
 --- !u!222 &1232348322
 CanvasRenderer:
   m_ObjectHideFlags: 0
