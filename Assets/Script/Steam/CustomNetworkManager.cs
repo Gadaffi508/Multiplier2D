@@ -28,10 +28,6 @@ public class CustomNetworkManager : NetworkManager
     public void StartGame(string SceneName)
     {
         ServerChangeScene(SceneName);
-        if (SteamMatchmaking.GetNumLobbyMembers((CSteamID)SteamLobby.Instance.CurrentLobbyID) != 2)
-        {
-            Debug.Log("You are the only person in the match..");
-        }
     }
 }
 

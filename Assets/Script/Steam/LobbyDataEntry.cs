@@ -19,13 +19,6 @@ public class LobbyDataEntry : MonoBehaviour
 
     public void JoinLobby()
     {
-        if (SteamMatchmaking.GetNumLobbyMembers((CSteamID)lobbyId) == 1)
-        {
-            SteamLobby.Instance.JoinLobby(lobbyId);
-        }
-        else
-        {
-            Debug.Log("The Room is full");
-        }
+        SteamLobby.Instance.JoinLobby(lobbyId);
     }
 }

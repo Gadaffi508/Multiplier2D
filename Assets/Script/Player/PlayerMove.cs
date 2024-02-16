@@ -36,28 +36,10 @@ public class PlayerMove : NetworkBehaviour
             playerSprite.SetActive(true);
              
             playerName.text = _steamPlayerController.PlayerName;
-        }
-        
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0f;
 
-        Vector3 direction = mousePosition - weaponPivot.position;
+            weaponPivot.rotation = WeaponRotate();
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion desiredRotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-
-        weaponPivot.rotation = Quaternion.Lerp(weaponPivot.rotation, desiredRotation, rotationSpeed * Time.deltaTime);
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Quaternion bulletRotation = bulletPos.rotation;
-
-            GameObject _bullet = Instantiate(bullet, bulletPos.position, bulletRotation);
-
-            Vector2 bulletDirection = bulletRotation * Vector2.right;
-            _bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * 1000);
-
-            Destroy(_bullet, 5f);
+            if (Input.GetMouseButtonDown(0)) Shoot();
         }
 
         x = Input.GetAxis("Horizontal");
@@ -80,5 +62,30 @@ public class PlayerMove : NetworkBehaviour
     {
         Vector3 direction = new Vector3(x,y);
         _rb.velocity = direction * speed * Time.deltaTime;
+    }
+
+    private Quaternion WeaponRotate()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0f;
+
+        Vector3 direction = mousePosition - weaponPivot.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion desiredRotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+        return Quaternion.Lerp(weaponPivot.rotation, desiredRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    private void Shoot()
+    {
+        Quaternion bulletRotation = bulletPos.rotation;
+
+        GameObject _bullet = Instantiate(bullet, bulletPos.position, bulletRotation);
+
+        Vector2 bulletDirection = bulletRotation * Vector2.right;
+        _bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * 1000);
+        _bullet.GetComponent<Bullet>().playerName = _steamPlayerController.PlayerName;
+
+        Destroy(_bullet, 5f);
     }
 }

@@ -77,7 +77,7 @@ public class SteamLobby : MonoBehaviour
     public void GetLobbiesList()
     {
         if(lobbyIDs.Count > 0) lobbyIDs.Clear();
-        SteamMatchmaking.AddRequestLobbyListResultCountFilter(60);
+        SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(1);
         SteamMatchmaking.RequestLobbyList();
     }
     
