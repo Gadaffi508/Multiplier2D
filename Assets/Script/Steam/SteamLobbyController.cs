@@ -187,6 +187,11 @@ public class SteamLobbyController : MonoBehaviour
     {
         LocalPlayerController.CanStartGame(sceneName);
     }
+
+    public void LobbyCreate()
+    {
+        SteamLobby.Instance.HostLobby();
+    }
 }
 
 

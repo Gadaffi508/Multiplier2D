@@ -490,9 +490,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 667446297}
-        m_TargetAssemblyTypeName: SteamLobby, Assembly-CSharp
-        m_MethodName: HostLobby
+      - m_Target: {fileID: 1735151304}
+        m_TargetAssemblyTypeName: SteamLobbyController, Assembly-CSharp
+        m_MethodName: LobbyCreate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -652,6 +652,7 @@ MonoBehaviour:
   evaluationInterval: 3
   timeInterpolationGui: 0
   gamePlayerPrefabs: {fileID: 1098340479752467101, guid: 396dc271c7c91f54b9c40c1763238383, type: 3}
+  GamePlayer: []
 --- !u!4 &667446301
 Transform:
   m_ObjectHideFlags: 0

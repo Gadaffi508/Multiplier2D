@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class CustomNetworkManager : NetworkManager
 {
     [SerializeField] private SteamPlayerController gamePlayerPrefabs;
-    public List<SteamPlayerController> GamePlayer { get; } = new List<SteamPlayerController>();
+    public List<SteamPlayerController> GamePlayer = new List<SteamPlayerController>();
     
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {

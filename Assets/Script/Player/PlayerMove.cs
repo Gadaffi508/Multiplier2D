@@ -41,6 +41,8 @@ public class PlayerMove : NetworkBehaviour
 
             if (Input.GetMouseButtonDown(0)) Shoot();
         }
+        else
+            playerSprite.SetActive(false);
 
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
@@ -85,6 +87,7 @@ public class PlayerMove : NetworkBehaviour
         Vector2 bulletDirection = bulletRotation * Vector2.right;
         _bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * 1000);
         _bullet.GetComponent<Bullet>().playerName = _steamPlayerController.PlayerName;
+        _bullet.GetComponent<Bullet>()._islocalPlayer = _steamPlayerController.isLocalPlayer;
 
         Destroy(_bullet, 5f);
     }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public string playerName;
+    internal bool _islocalPlayer;
     private GameSceneManager _manager;
 
     private void Start()
@@ -19,8 +20,11 @@ public class Bullet : MonoBehaviour
         {
             if (playerController.PlayerName != playerName)
             {
-                _manager.globalPlayerScore++;
-                _manager.localPlayerScore++;
+                if (_islocalPlayer is true)
+                    _manager.localPlayerScore++;
+                else
+                    _manager.globalPlayerScore++;
+                
                 _manager.UpdateScore();
             }
         }

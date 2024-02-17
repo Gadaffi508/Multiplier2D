@@ -40,5 +40,9 @@ public class GameSceneManager : MonoBehaviour
     {
         SteamLobby.Instance.LeaveLobby();
         Manager.StartGame(sceneName);
+        foreach (SteamPlayerController player in Manager.GamePlayer)
+        {
+            Destroy(player.gameObject);
+        }
     }
 }
