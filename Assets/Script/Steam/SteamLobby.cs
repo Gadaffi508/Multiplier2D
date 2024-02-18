@@ -64,10 +64,6 @@ public class SteamLobby : MonoBehaviour
         cmanager.networkAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby ), HostAddressKey);
         cmanager.StartClient();
     }
-    public void HostLobby()
-    {
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 4);
-    }
 
     public void JoinLobby(CSteamID lobbyID)
     {
@@ -77,8 +73,8 @@ public class SteamLobby : MonoBehaviour
     public void GetLobbiesList()
     {
         if(lobbyIDs.Count > 0) lobbyIDs.Clear();
-        SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(1);
         SteamMatchmaking.RequestLobbyList();
+        SteamMatchmaking.AddRequestLobbyListFilterSlotsAvailable(1);
     }
     
     private void OnGetLobbyList(LobbyMatchList_t result)
@@ -96,11 +92,20 @@ public class SteamLobby : MonoBehaviour
     {
         LobbiesListManager.Instance.DisaplayLobbies(lobbyIDs,result);
     }
+    
+    public void Host()
+    {
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, 2);
+        SteamLobbyController.Instance.UpdatePlayerList();
+    }
 
-    public void LeaveLobby()
+    public void LeaveLobby(string sceneName)
     {
         SteamMatchmaking.LeaveLobby(new CSteamID(CurrentLobbyID));
+        SteamMatchmaking.DeleteLobbyData(new CSteamID(CurrentLobbyID),"name");
+        SteamLobbyController.Instance.ClearPlayerList();
         CurrentLobbyID = 0;
+        cmanager.StartGame(sceneName);
         Debug.Log("Disconnected");
     }
 }

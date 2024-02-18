@@ -1,8 +1,9 @@
 using System;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameSceneManager : MonoBehaviour
+public class GameSceneManager : NetworkBehaviour
 {
     public int localPlayerScore;
     public int globalPlayerScore;
@@ -30,6 +31,7 @@ public class GameSceneManager : MonoBehaviour
         UpdateScore();
     }
 
+    [Command]
     public void UpdateScore()
     {
         localPlayerScoreText.text = "Local Player Score " + localPlayerScore;
@@ -38,11 +40,6 @@ public class GameSceneManager : MonoBehaviour
 
     public void LeaveGame()
     {
-        SteamLobby.Instance.LeaveLobby();
-        Manager.StartGame(sceneName);
-        foreach (SteamPlayerController player in Manager.GamePlayer)
-        {
-            Destroy(player.gameObject);
-        }
+        SteamLobby.Instance.LeaveLobby(sceneName);
     }
 }

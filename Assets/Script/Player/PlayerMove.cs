@@ -37,9 +37,9 @@ public class PlayerMove : NetworkBehaviour
              
             playerName.text = _steamPlayerController.PlayerName;
 
-            weaponPivot.rotation = WeaponRotate();
+            CmdWeaponRotate();
 
-            if (Input.GetMouseButtonDown(0)) Shoot();
+            if (Input.GetMouseButtonDown(0)) CmdShoot();
         }
         else
             playerSprite.SetActive(false);
@@ -53,12 +53,19 @@ public class PlayerMove : NetworkBehaviour
         CmdMove(x,y);
     }
 
+    #region Commands
+
     [Command]
-    private void CmdMove(float x, float y)
-    {
-        RpcMove(x,y);
-    }
-    
+    private void CmdMove(float x, float y) => RpcMove(x,y);
+    [Command]
+    private void CmdShoot() => Shoot();
+    [Command]
+    private void CmdWeaponRotate() => WeaponRotate();
+
+    #endregion
+
+    #region Move
+
     [ClientRpc]
     private void RpcMove(float x, float y)
     {
@@ -66,7 +73,11 @@ public class PlayerMove : NetworkBehaviour
         _rb.velocity = direction * speed * Time.deltaTime;
     }
 
-    private Quaternion WeaponRotate()
+    #endregion
+
+    #region WeaponRotateFunc
+    [ClientRpc]
+    private void WeaponRotate()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0f;
@@ -75,9 +86,12 @@ public class PlayerMove : NetworkBehaviour
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion desiredRotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        return Quaternion.Lerp(weaponPivot.rotation, desiredRotation, rotationSpeed * Time.deltaTime);
+        weaponPivot.rotation = Quaternion.Lerp(weaponPivot.rotation, desiredRotation, rotationSpeed * Time.deltaTime);
     }
+    #endregion
 
+    #region ShootFunc
+    [ClientRpc]
     private void Shoot()
     {
         Quaternion bulletRotation = bulletPos.rotation;
@@ -91,4 +105,5 @@ public class PlayerMove : NetworkBehaviour
 
         Destroy(_bullet, 5f);
     }
+    #endregion
 }
