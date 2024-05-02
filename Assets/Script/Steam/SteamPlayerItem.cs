@@ -72,7 +72,7 @@ public class SteamPlayerItem : MonoBehaviour
             isValid = SteamUtils.GetImageRGBA(Image,image,(int)(width * height * 4));
             if (isValid)
             {
-                texture = new Texture2D((int)width,(int)height,TextureFormat.RG32,false,true);
+                texture = new Texture2D((int)width,(int)height,TextureFormat.RGBA32,false,true);
                 texture.LoadRawTextureData(image);
                 texture.Apply();
             }
